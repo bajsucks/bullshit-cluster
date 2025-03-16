@@ -37,8 +37,9 @@
         var Balance = 0;
         if (CBalance != "")
         {
-            var Balance = parseInt(CBalance);
+            Balance = parseInt(CBalance);
         }
+        window.addEventListener("beforeunload", SaveCookie());
         var Increment = 1;
         var IncrementButton = 1;
         var IncrementTime = 1000;
@@ -70,7 +71,6 @@
         }
         setTimeout(TimeIncrement, IncrementTime);
         setInterval(UpdateIncome, 1000);
-        window.addEventListener("beforeunload", SaveCookie());
     </script>
 </body>
 
