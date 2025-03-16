@@ -6,63 +6,75 @@
         font: bolder;
     }
 </style>
-
-<script src="cookiewrapper.js">
-    Window.PrintThing()
-</script>
+<script src="CookieWrapper.js"></script>
 <script src="TextRainbow.js"></script>
-<script src="Utility.js"></script> 
+<script src="Utility.js"></script>
+<body>
+    <script>
+        // cookie wrapper
+        const daysToExpire = new Date(2147483647 * 1000).toUTCString()
+        function SaveCookie()
+        {
+            setCookie("Balance", Balance.toString(), daysToExpire);
+        }
 
+        var CBalance = getCookie("Balance")
 
-<script>
-    // cookie wrapper
-    // Update balance visually
-    function UpdateBalance()
-    {
-        document.getElementById("balance").innerHTML = "Balance: "+Balance;
-    }
-
-    // Notification for the user
-    function Notif(text)
-    {
-        // todo
-    }
-    // Load cookie
-
-    // Balance management
-    var Balance = 0;
-    var Increment = 1;
-    var IncrementButton = 1;
-    var IncrementTime = 1000;
-    var LastCheckTime = performance.now();
-    var LastCheckBalance = 0;
-    var LastCheckIncome = 0
-
-    function UpdateIncome()
-    {
-        let Difference = (performance.now() - LastCheckTime)/1000;
-        let ResultIncome = (Balance-LastCheckBalance)/Difference;
-        document.getElementById("income").innerHTML = "Income (per second): "+Math.floor(ResultIncome*100)/100;
-        LastCheckTime = performance.now();
-        LastCheckBalance = Balance;
-        LastCheckIncome = ResultIncome;
-    }
-
-    function TimeIncrement()
-    {
-        Balance += Increment;
+        // Update balance visually
+        function UpdateBalance()
+        {
+            document.getElementById("balance").innerHTML = "Balance: "+Balance;
+        }
+    
+        // Notification for the user
+        function Notif(text)
+        {
+            // todo
+        }
+        // Load cookie
+    
+        // Balance management
+        if (CBalance != "")
+        {
+            var Balance = parseInt(CBalance);
+        }
+        else
+        {
+            var Balance = 0;
+        }
+        var Increment = 1;
+        var IncrementButton = 1;
+        var IncrementTime = 1000;
+        var LastCheckTime = performance.now();
+        var LastCheckBalance = 0;
+        var LastCheckIncome = 0
+    
+        function UpdateIncome()
+        {
+            let Difference = (performance.now() - LastCheckTime)/1000;
+            let ResultIncome = (Balance-LastCheckBalance)/Difference;
+            document.getElementById("income").innerHTML = "Income (per second): "+Math.floor(ResultIncome*100)/100;
+            LastCheckTime = performance.now();
+            LastCheckBalance = Balance;
+            LastCheckIncome = ResultIncome;
+        }
+    
+        function TimeIncrement()
+        {
+            Balance += Increment;
+            setTimeout(TimeIncrement, IncrementTime);
+            UpdateBalance();
+        }
+    
+        function ButtonIncrement()
+        {
+            Balance += IncrementButton;
+            UpdateBalance();
+        }
         setTimeout(TimeIncrement, IncrementTime);
-        UpdateBalance();
-    }
-
-    function ButtonIncrement()
-    {
-        Balance += IncrementButton;
-        UpdateBalance();
-    }
-    setTimeout(TimeIncrement, IncrementTime);
-    setInterval(UpdateIncome, 1000);
-</script>
+        setInterval(UpdateIncome, 1000);
+    </script>
+</body>
 
 <title>EASIEST CLICKER GAME !!</title>
 
@@ -79,4 +91,4 @@
 
     </button>
 </div> -->
-<body onbeforeunload="return myFunction()">
+<body onbeforeunload="return SaveCookie()">

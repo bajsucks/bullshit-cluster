@@ -1,4 +1,4 @@
-Window.setCookie = function(cname, cvalue, exdays)
+function setCookie(cname, cvalue, exdays)
 {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -24,24 +24,3 @@ function getCookie(cname)
     }
     return "";
 }
-Window.PrintThing = function()
-{
-    console.warn("1!")
-}
-
-function checkCookie()
-{
-    let user = getCookie("username");
-    if (user != "")
-    {
-        alert("Welcome again " + user);
-    }
-    else
-    {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null)
-        {
-        setCookie("username", user, 365);
-        }
-    }
-} 
