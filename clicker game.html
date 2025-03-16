@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<style>
+    .title {
+        font-size: x-large;
+        font: bolder;
+    }
+</style>
+
+<script src="cookiewrapper.js"></script>
+<script src="TextRainbow.js"></script>
+<script src="Utility.js"></script> 
+
+<script>
+    // cookie wrapper
+
+    // Update balance visually
+    function UpdateBalance()
+    {
+        document.getElementById("balance").innerHTML = "Balance: "+Balance;
+    }
+
+    // Notification for the user
+    function Notif(text)
+    {
+        // todo
+    }
+
+    // Balance management
+    var Balance = 0;
+    var Increment = 1;
+    var IncrementButton = 1;
+    var IncrementTime = 1000;
+    var LastCheckTime = performance.now();
+    var LastCheckBalance = 0;
+    var LastCheckIncome = 0
+
+    function UpdateIncome()
+    {
+        let Difference = (performance.now() - LastCheckTime)/1000;
+        let ResultIncome = (Balance-LastCheckBalance)/Difference;
+        document.getElementById("income").innerHTML = "Income (per second): "+Math.floor(ResultIncome*100)/100;
+        LastCheckTime = performance.now();
+        LastCheckBalance = Balance;
+        LastCheckIncome = ResultIncome;
+    }
+
+    function TimeIncrement()
+    {
+        Balance += Increment;
+        setTimeout(TimeIncrement, IncrementTime);
+        UpdateBalance();
+    }
+
+    function ButtonIncrement()
+    {
+        Balance += IncrementButton;
+        UpdateBalance();
+    }
+    setTimeout(TimeIncrement, IncrementTime);
+    setInterval(UpdateIncome, 1000);
+</script>
+
+<title>EASIEST CLICKER GAME !!</title>
+
+<h2 id="title" class="title">WORLD'S EASIEST CLICKER GAME!</h2>
+
+<p id="balance" class="balance">Balance: 0</p>
+<p id="income" class="income">Income (per second): 0</p>
+<div class="b">
+    <button onclick="ButtonIncrement()">Click to do the thing!!!</button>
+    <p id="click" class="click">Income (per click): 1</p>
+</div>
+<!-- <div>
+    <button>
+
+    </button>
+</div> -->
+<body onbeforeunload="return myFunction()">
