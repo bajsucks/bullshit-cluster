@@ -15,10 +15,11 @@
         const daysToExpire = new Date(2147483647 * 1000).toUTCString();
         function SaveCookie()
         {
-            setCookie("Balance", Balance.toString(), 120);
+            removeCookie("Balance")
+            createCookie("Balance", Balance, 120);
         }
 
-        var CBalance = getCookie("Balance")
+        var CBalance = readCookie("Balance")
 
         // Update balance visually
         function UpdateBalance()
@@ -35,11 +36,11 @@
     
         // Balance management
         var Balance = 0;
-        if (CBalance != "")
+        if (CBalance != "" && parseInt(CBalance))
         {
             Balance = parseInt(CBalance);
         }
-        window.addEventListener("beforeunload", SaveCookie());
+        window.addEventListener("beforeunload", SaveCookie);
         setInterval(SaveCookie, 1000)
         var Increment = 1;
         var IncrementButton = 1;
