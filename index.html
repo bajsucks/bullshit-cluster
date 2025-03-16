@@ -15,8 +15,9 @@
         const daysToExpire = new Date(2147483647 * 1000).toUTCString()
         function SaveCookie()
         {
-            setCookie("Balance", Balance.toString(), daysToExpire);
+            setCookie("Balance", Balance.toString(), 120);
         }
+        window.addEventListener("beforeunload", SaveCookie())
 
         var CBalance = getCookie("Balance")
 
@@ -83,9 +84,3 @@
     <button onclick="ButtonIncrement()">Click to do the thing!!!</button>
     <p id="click" class="click">Income (per click): 1</p>
 </div>
-<!-- <div>
-    <button>
-
-    </button>
-</div> -->
-<body onbeforeunload="return SaveCookie()">
