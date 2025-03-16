@@ -12,12 +12,11 @@
 <body>
     <script>
         // cookie wrapper
-        const daysToExpire = new Date(2147483647 * 1000).toUTCString()
+        const daysToExpire = new Date(2147483647 * 1000).toUTCString();
         function SaveCookie()
         {
             setCookie("Balance", Balance.toString(), 120);
         }
-        window.addEventListener("beforeunload", SaveCookie())
 
         var CBalance = getCookie("Balance")
 
@@ -71,6 +70,7 @@
         }
         setTimeout(TimeIncrement, IncrementTime);
         setInterval(UpdateIncome, 1000);
+        window.addEventListener("beforeunload", SaveCookie());
     </script>
 </body>
 
