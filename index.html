@@ -12,18 +12,19 @@
     </header>
     <body>
 
-        <div class="main">
+        <div class="main" id="mainFrame">
         
             <h2 id="title" class="title">WORLD'S EASIEST CLICKER GAME!</h2>
             
             <p id="balance" class="balance">Balance: 0</p>
         
-            <p id="income" class="income">Income (per second): 0</p>
+            <p id="incomeps" class="income">Income (per second): 0</p>
         
             <div class="b">
-                <button onclick="ButtonIncrement()" class = "StandardButton">Click to do the thing!!!</button>
-                <p id="click" class="click">Income (per click): 1</p>
+                <button onclick="ButtonIncrement()" class="StandardButton" id="clickerbutton">Click to do the thing!!!</button>
+                <p id="incomepc" class="click">Income (per click): 1</p>
             </div>
+            <button onclick="WipeData()" class="StandardButton" id="wipe">Wipe data</button>
         
             <div class="shopframe">
         
@@ -33,16 +34,16 @@
         
                 <div class="shopbuttonframe">
         
-                    <button class="shopbutton StandardButton" id="shop0">
+                    <button class="shopbutton StandardButton" id="shop0" title="test title">
                         Shop button 0!
                     </button>
-                    <button class="shopbutton StandardButton" id="shop1">
+                    <button class="shopbutton StandardButton" id="shop1" title="test title">
                         Shop button 1!
                     </button>
-                    <button class="shopbutton StandardButton" id="shop2">
+                    <button class="shopbutton StandardButton" id="shop2" title="test title">
                         Shop button 2!
                     </button>
-                    <button class="shopbutton StandardButton" id="shop3">
+                    <button class="shopbutton StandardButton" id="shop3" title="test title">
                         Shop button 3!
                     </button>
         
@@ -61,3 +62,4 @@
     </body>
 </html>
 <script src="Scripts/Main.js"></script>
+<script src="Scripts/Velocity.js"></script>
