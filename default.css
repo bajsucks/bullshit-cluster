@@ -8,6 +8,7 @@ body
 .StandardButton
 {
     cursor: pointer;
+    touch-action: manipulation; /* TODO: remove spaces */
 }
 .title
 {
