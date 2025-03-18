@@ -94,6 +94,7 @@ body
 {
     z-index: 9999;
     position: relative;
+    touch-action: manipulation;
 }
 #wipe
 {
