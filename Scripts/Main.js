@@ -76,12 +76,27 @@ var IncrementMultiplier = 1;
 var LastCheckTime = performance.now();
 var LastCheckBalance = Balance;
 var Upgrades = [0, 0, 0, 0];
-var ShopButtons = [
+const ShopButtons = [
     document.getElementById("shop0"), 
     document.getElementById("shop1"), 
     document.getElementById("shop2"), 
     document.getElementById("shop3")
 ];
+const ShopButtonDescs = [
+    document.getElementById("descshop0"),
+    document.getElementById("descshop1"),
+    document.getElementById("descshop2"),
+    document.getElementById("descshop3")
+]; // if someone knows a better way to do this lmk
+
+function UpdateShopDescs()
+{
+    for (let i = 0; i < ShopButtonDescs.length; i++)
+    {
+        ShopButtonDescs[i].innerHTML = Upgrades[i]+"/"+MaxUpgrades[i]
+    }
+}
+
 if (CUpgrades != "" && JSON.parse(CUpgrades) != null)
     {
         Upgrades = JSON.parse(CUpgrades);
@@ -144,7 +159,8 @@ function UpdateUpgrades()
     else
     {
         document.getElementById("incomepc").innerHTML = "Income (per click): "+abbreviateNum(IncrementButton * IncrementButtonMultiplier)
-    } 
+    }
+    UpdateShopDescs()
 }
 UpdateUpgrades()
 
