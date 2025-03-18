@@ -11,10 +11,25 @@
     <header>
     </header>
     <body>
+        <button id="TestButton" onclick="Test()" class="StandardButton debug">test</button>
+        <div id="FireGif" class="debug"></div>
+
+        <div id="ControlPanel">
+            <p id="ControlPanelName">Control Panel</p>
+            <button id="Statswitch" class="ControlPanelButton StandardButton" onclick="SwitchTo('Stats')">Statistics</button>
+            <button id="Settings" class="ControlPanelButton StandardButton" onclick="SwitchTo('Settings')">Settings</button>
+            <button id="wipe" class="ControlPanelButton StandardButton" onclick="WipeData()">Wipe data</button>
+        </div>
+
+        <div class = "main Stats">
+            <p id="StatisticsInfo">this window will contain your statistics sometime in the near future</p>
+        </div>
+        <div class="main Settings">
+            <p id="SettingsInfo">this window will contain your settings sometime in near future</p>
+        </div>
         <a href="https://discord.gg/HEfjvH2nQz" target="_blank"><button id="DiscordSocial"></button></a>
-        <button id="TestButton" onclick="Test()">test</button>
-        <div id="FireGif"></div>
-        <div class="main" id="mainFrame">
+
+        <div class="main Game" id="mainFrame">
             
             <h2 id="title" class="title">WORLD'S EASIEST CLICKER GAME!</h2>
             
@@ -26,7 +41,6 @@
                 <button onclick="ButtonIncrement()" class="StandardButton" id="clickerbutton">Click to do the thing!!!</button>
                 <p id="incomepc" class="click">Income (per click): 1</p>
             </div>
-            <button onclick="WipeData()" class="StandardButton" id="wipe">Wipe data</button>
         
             <div class="shopframe">
         
@@ -34,7 +48,7 @@
                     The insanity shop
                 </p>
         
-                <div class="shopbuttonframe">
+                <div id="shopbuttonframe">
                     <div class="shopbuttoncontainer">
                         <button class="shopbutton StandardButton" id="shop0" title="test title">
                             Shop button 0!
@@ -64,8 +78,8 @@
         </div>
 
 
-        <div class="usernotifBox" id="usernotifBox">
-            <h3 class="usernotif" id="usernotif">
+        <div id="usernotifBox">
+            <h3 id="usernotif">
                 test text notification !!!!
             </h3>
         </div>

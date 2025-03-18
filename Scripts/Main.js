@@ -1,4 +1,3 @@
-// cookie wrapper
 const UpgradeStats = [
     "Adds 1 to your per click income", 
     "Multiplies your per click income by 1.25x", 
@@ -31,15 +30,30 @@ function abbreviateNum(num)
     return parseFloat(num.toFixed(1)) + suffixes[magnitude];
 }
 
-function SaveCookie()
+function SaveData()
 {
-    removeCookie("Balance");
-    removeCookie("Upgrades")
-    createCookie("Balance", Balance, 120);
-    createCookie("Upgrades", JSON.stringify(Upgrades))
+    var DataArray = [Balance, Upgrades];
+    DataArray = JSON.stringify(DataArray);
+    localStorage.setItem("GameData", DataArray);
 }
-var CBalance = readCookie("Balance")
-var CUpgrades = readCookie("Upgrades")
+
+function ReadData(index)
+{
+    var GameData = localStorage.getItem("GameData")
+    GameData = JSON.parse(GameData)
+    console.warn(GameData);
+    if (GameData != null)
+    {
+        return GameData[index]
+    }
+    else
+    {
+        return null
+    }
+}
+
+var CBalance = ReadData(0)
+var CUpgrades = ReadData(1)
 
 // Update balance visually
 function UpdateBalance(){ document.getElementById("balance").innerHTML = "Balance: "+abbreviateNum(Balance); }
@@ -57,17 +71,17 @@ function Notif(text, t)
     PendingTimeout = setTimeout(Disappear, t)
 }
 
-if (CBalance != ""){ Notif("Welcome back!", 12000) }
+if (CBalance != null){ Notif("Welcome back!", 12000) }
 
 
 // main statistics, cookie load
+
 var Balance = 0;
 if (CBalance != "" && parseInt(CBalance))
 {
     Balance = parseInt(CBalance);
 }
-window.addEventListener("beforeunload", SaveCookie);
-setInterval(SaveCookie, 1000)
+
 var Increment = 1;
 var IncrementButton = 1;
 var IncrementButtonMultiplier = 1;
@@ -75,7 +89,20 @@ var IncrementTime = 1000;
 var IncrementMultiplier = 1;
 var LastCheckTime = performance.now();
 var LastCheckBalance = Balance;
+
 var Upgrades = [0, 0, 0, 0];
+if (CUpgrades != null)
+{
+    Upgrades = CUpgrades;
+    IncrementButton = Upgrades[0] + 1;
+    IncrementButtonMultiplier = 0.25 * Upgrades[1] + 1;
+    Increment = Upgrades[2] + 1;
+    IncrementMultiplier = 0.2 * Upgrades[3] + 1;
+}
+
+window.addEventListener("beforeunload", SaveData);
+setInterval(SaveData, 1000)
+
 const ShopButtons = [
     document.getElementById("shop0"), 
     document.getElementById("shop1"), 
@@ -97,14 +124,6 @@ function UpdateShopDescs()
     }
 }
 
-if (CUpgrades != "" && JSON.parse(CUpgrades) != null)
-    {
-        Upgrades = JSON.parse(CUpgrades);
-        IncrementButton = Upgrades[0] + 1;
-        IncrementButtonMultiplier = 0.25 * Upgrades[1] + 1;
-        Increment = Upgrades[2] + 1;
-        IncrementMultiplier = 0.2 * Upgrades[3] + 1;
-    }
 function BuyUpgrade(i)
 {
     var UpgradeCount = Upgrades[i]
@@ -207,8 +226,52 @@ function WipeData()
     LastCheckBalance = Balance;
     LastCheckIncome = 0
     Upgrades = [0, 0, 0, 0];
-    SaveCookie();
+    SaveData();
     location.reload(true);
 }
+
+var StatsElems = document.querySelectorAll(".Stats")
+var GameElems = document.querySelectorAll(".Game")
+var SettingsElems = document.querySelectorAll(".Settings")
+function on(thing)
+{
+    thing.style.visibility = "visible";
+}
+function off(thing)
+{
+    thing.style.visibility = "hidden";
+}
+var CurrentWindow = null;
+function SwitchTo(To)
+{
+    switch (To)
+    {
+        case CurrentWindow:
+            CurrentWindow = "Game"
+            StatsElems.forEach(off)
+            SettingsElems.forEach(off)
+            GameElems.forEach(on)
+            break;
+        case "Stats":
+            CurrentWindow = "Stats"
+            StatsElems.forEach(on)
+            SettingsElems.forEach(off)
+            GameElems.forEach(off)
+            break;
+        case "Settings":
+            CurrentWindow = "Settings"
+            StatsElems.forEach(off)
+            SettingsElems.forEach(on)
+            GameElems.forEach(off)
+            break;
+        default:
+            CurrentWindow = "Game"
+            StatsElems.forEach(off)
+            SettingsElems.forEach(off)
+            GameElems.forEach(on)
+    }
+}
+StatsElems.forEach(off)
+SettingsElems.forEach(off)
 setTimeout(TimeIncrement, IncrementTime);
 setInterval(psIncomeCalc, 1000);

@@ -4,48 +4,41 @@ body
     padding: 0;
     border: 0;
     overflow: hidden;
+    touch-action: manipulation;
 }
 .StandardButton
 {
     cursor: pointer;
+    touch-action: manipulation;
 }
 .title
 {
     font-size: x-large;
     font: bolder;
 }
-.usernotif
+#usernotif
 {
-    border-style: none;
-    text-align-last: center;
-    width: 100%;
-    height: 100%;
-    margin: 0;
+    margin-top: calc(0.2 * var(--box-height));
     padding: 0;
-    padding-top: 3vh;
+    border: 0;
+    text-align: center;
     font-size: calc(0.5 * var(--box-height));
 }
-.usernotifBox
+#usernotifBox
 {
-    width: 100%;
+    position: absolute;
+    width: 100% - 1vh;
     height: 10%;
     --box-height: 10vh;
+    border-width: calc(0.08 * var(--box-height));
     border-style: double;
-    position: absolute;
-    bottom: 0;
-    box-sizing: border-box;
-    border-width: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: opacity 2s;
     opacity: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
-.main
-{
-    margin: 10px;
-}
-.shopbuttonframe
+#shopbuttonframe
 {
     height: 70%;
     padding: 15px;
@@ -92,24 +85,18 @@ body
 }
 #clickerbutton
 {
-    z-index: 9999;
+    z-index: 100;
     position: relative;
     touch-action: manipulation;
 }
-#wipe
-{
-    background-color: rgb(230, 175, 175);
-    color: red;
-    float: right;
-    width: 100px;
-    height: 50px;
-}
 #DiscordSocial
 {
+    position: absolute;
     width: 50px;
     height: 50px;
-    float: right;
+    right: 0;
     margin-right: 10px;
+    margin-top: 10px;
     background-color: transparent;
     background-image: url("Images/discordlogo.png");
     background-size: cover;
@@ -138,4 +125,51 @@ body
     position: absolute;
     bottom: 10%;
     visibility: hidden;
+}
+.main
+{
+    margin: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#ControlPanel
+{
+    position: absolute;
+    right: 0;
+    padding: 15px;
+    padding-top: 5px;
+    margin-top: 300px;
+    margin-right: 10px;
+    border-style: double;
+    z-index: 2;
+}
+#ControlPanelName
+{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+.ControlPanelButton
+{
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    margin-bottom: 15px;
+}
+#wipe
+{
+    background-color: rgb(230, 175, 175);
+    color: red;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    margin-top: 30px;
+}
+#StatisticsInfo, #SettingsInfo
+{
+    font-size: large;
 }
