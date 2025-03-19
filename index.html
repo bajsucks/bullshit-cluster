@@ -5,7 +5,6 @@
         <title>Easiest Clicker Ever</title>
 
         <script src="Scripts/CookieWrapper.js"></script>
-        <script src="Scripts/TextRainbow.js"></script>
         <script src="Scripts/Utility.js"></script>
     </head>
     <header>
@@ -25,13 +24,19 @@
             <p id="StatisticsInfo">this window will contain your statistics sometime in the near future</p>
         </div>
         <div class="main Settings">
-            <p id="SettingsInfo">this window will contain your settings sometime in near future</p>
+            <p id="SettingsInfo">More settings to come in the future</p>
+            <div id="darkmodeholder">
+                <button class="StandardButton DarkMode" onclick="DarkMode('dark-mode')">Default dark mode</button>
+                <button class="StandardButton DarkMode" onclick="DarkMode('dark-mode-green')">Green dark mode</button>
+                <button class="StandardButton DarkMode" onclick="DarkMode('dark-mode-purple')">Purple dark mode</button>
+                <button class="StandardButton DarkMode" onclick="DarkMode('light')">Light mode</button>
+            </div>
         </div>
         <a href="https://discord.gg/HEfjvH2nQz" target="_blank"><button id="DiscordSocial"></button></a>
 
         <div class="main Game" id="mainFrame">
             
-            <h2 id="title" class="title">WORLD'S EASIEST CLICKER GAME!</h2>
+            <h2 id="title" class="title rainbow">WORLD'S EASIEST CLICKER GAME!</h2>
             
             <p id="balance" class="balance">Balance: 0</p>
         
@@ -89,3 +94,4 @@
 </html>
 <script src="Scripts/Main.js"></script>
 <script src="Scripts/Velocity.js"></script>
+<script src="Scripts/TextRainbow.js"></script>

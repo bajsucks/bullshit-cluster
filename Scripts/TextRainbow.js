@@ -1,27 +1,17 @@
 // just the rainbow
 var CurrentVal = 0;
 var s = false;
+var title = document.getElementById("title")
 function TimedRainbow()
 {
+    s = !s
     if (s)
     {
-        CurrentVal += 10;
-        if (CurrentVal > 200)
-        {
-            CurrentVal = 200;
-            s = !s;
-        }  
+        title.style.opacity = 1;
     }
     else
     {
-        CurrentVal -= 10;
-        if (CurrentVal < 10)
-        {
-            CurrentVal = 0;
-            s = !s;
-        } 
+        title.style.opacity = 0;
     }
-    document.getElementById("title").style.color = "rgb("+CurrentVal+","+CurrentVal+","+CurrentVal+")";
-    setTimeout(TimedRainbow, 50);
 }
-setTimeout(TimedRainbow, 50);
+setInterval(TimedRainbow, 1300)

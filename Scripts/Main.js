@@ -30,9 +30,23 @@ function abbreviateNum(num)
     return parseFloat(num.toFixed(1)) + suffixes[magnitude];
 }
 
+// to hourse:minutes:seconds
+function toHHMMSS(str)
+{
+    var sec_num = parseInt(str, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds;
+}
+
 function SaveData()
 {
-    var DataArray = [Balance, Upgrades];
+    var DataArray = [Balance, Upgrades, TotalBalance, TimeInGame];
     DataArray = JSON.stringify(DataArray);
     localStorage.setItem("GameData", DataArray);
 }
@@ -54,6 +68,8 @@ function ReadData(index)
 
 var CBalance = ReadData(0)
 var CUpgrades = ReadData(1)
+var CTotalBalance = ReadData(2)
+var CTimeInGame = ReadData(3)
 
 // Update balance visually
 function UpdateBalance(){ document.getElementById("balance").innerHTML = "Balance: "+abbreviateNum(Balance); }
@@ -77,9 +93,24 @@ if (CBalance != null){ Notif("Welcome back!", 12000) }
 // main statistics, cookie load
 
 var Balance = 0;
-if (CBalance != "" && parseInt(CBalance))
+var TotalBalance = 0;
+var TimeInGame = 0;
+function CParse(C)
+{
+    return C != "" && parseInt(C)
+}
+
+if (CParse(CBalance))
 {
     Balance = parseInt(CBalance);
+}
+if (CParse(CTotalBalance))
+{
+    TotalBalance = parseInt(CTotalBalance)
+}
+if (CParse(CTimeInGame))
+{
+    TimeInGame = parseInt(CTimeInGame)
 }
 
 var Increment = 1;
@@ -150,6 +181,7 @@ function BuyUpgrade(i)
             break;
         case 1:
             IncrementButtonMultiplier += 0.25
+            IncrementButtonMultiplier = Math.floor(IncrementButtonMultiplier*100)/100
             break;
         case 2:
             Increment += 1
@@ -180,10 +212,40 @@ function UpdateUpgrades()
         document.getElementById("incomepc").innerHTML = "Income (per click): "+abbreviateNum(IncrementButton * IncrementButtonMultiplier)
     }
     UpdateShopDescs()
+    UpdateStatistics()
+}
+var LastIncrementUpdate = performance.now()
+function IncrementGameTime()
+{
+    var LiterallyNow = performance.now()
+    var Delta = LiterallyNow - LastIncrementUpdate
+    LastIncrementUpdate = LiterallyNow
+    TimeInGame += Delta/1000
+}
+IncrementGameTime()
+function UpdateStatistics()
+{
+    function NewLine(t)
+    {
+        StatInfo.innerHTML = StatInfo.innerHTML+"<br>"+t
+    }
+    var StatInfo = document.getElementById("StatisticsInfo")
+    StatInfo.innerHTML = ""
+    NewLine("Current balance: "+Math.floor(Balance))
+    NewLine("Lifetime balance: "+Math.floor(TotalBalance))
+    NewLine("Raw passive income: "+Math.floor(Increment))
+    NewLine("Passive income multiplier: "+IncrementMultiplier)
+    NewLine("Total passive income: "+Math.floor(Increment * IncrementMultiplier))
+    NewLine("Passive income time: "+Math.floor(IncrementTime)+"ms")
+    NewLine("Raw per click income: "+Math.floor(IncrementButton))
+    NewLine("Per click income multiplier: "+IncrementButtonMultiplier)
+    NewLine("Total per click income: "+Math.floor(IncrementButton * IncrementButtonMultiplier))
+    NewLine("")
+    NewLine("Time spent in game: "+toHHMMSS(TimeInGame))
 }
 UpdateUpgrades()
 
-function psIncomeCalc() // TODO: Remake to constant calculation, and only real time calculate the mouse clicks
+function psIncomeCalc()
 {
     let TimeDifference = (performance.now() - LastCheckTime); // ms
     let ExpectedIncome = Increment * IncrementMultiplier * 1000 / IncrementTime;
@@ -203,20 +265,25 @@ function psIncomeCalc() // TODO: Remake to constant calculation, and only real t
 
 function TimeIncrement()
 {
-    Balance += Increment * IncrementMultiplier;
+    var toget = Increment * IncrementMultiplier
+    Balance += toget;
+    TotalBalance += toget;
     setTimeout(TimeIncrement, IncrementTime);
     UpdateBalance();
 }
 
 function ButtonIncrement()
 {
-    Balance += IncrementButton * IncrementButtonMultiplier;
+    var toget = IncrementButton * IncrementButtonMultiplier
+    Balance += toget;
+    TotalBalance += toget;
     UpdateBalance();
 }
 
 function WipeData()
 {
     Balance = 0;
+    TotalBalance = 0;
     Increment = 1;
     IncrementButton = 1;
     IncrementButtonMultiplier = 1;
@@ -271,7 +338,47 @@ function SwitchTo(To)
             GameElems.forEach(on)
     }
 }
+var texts = document.querySelectorAll("button")
+var divs = document.querySelectorAll("div")
+var body = document.querySelectorAll("body")
+function DarkMode(tag)
+{
+    var taglist = [
+        "dark-mode",
+        "dark-mode-green",
+        "dark-mode-purple"
+    ];
+    if (tag == 'light')
+    {
+        function sw(thing)
+        {
+            for (let i = 0; i < taglist.length; i++)
+            {
+                thing.classList.toggle(taglist[i], false) 
+            }
+        }
+        body.forEach(sw)
+    }
+    else
+    {
+        function sw(thing)
+        {
+            for (let i = 0; i < taglist.length; i++)
+            {
+                thing.classList.toggle(taglist[i], false) 
+            }
+            thing.classList.toggle(tag)
+        }
+        body.forEach(sw)
+    }
+    Notif("Dark mode switched successfully!", 3000)
+}
 StatsElems.forEach(off)
 SettingsElems.forEach(off)
+
+
+UpdateStatistics()
 setTimeout(TimeIncrement, IncrementTime);
 setInterval(psIncomeCalc, 1000);
+setInterval(UpdateStatistics, 1000);
+setInterval(IncrementGameTime, 1000);
