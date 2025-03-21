@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="default.css" rel="stylesheet" type="text/css">
+        <link href="Css/default.css" rel="stylesheet" type="text/css">
+        <link href="Css/prestige.css" rel="stylesheet" type="text/css">
+        <link href="Css/controlPanel.css" rel="stylesheet" type="text/css">
+        <link href="Css/goals.css" rel="stylesheet" type="text/css">
         <title>Easiest Clicker Ever</title>
+        <link rel="icon" href="Images/fire.gif" type="image/gif" >
 
         <script src="Scripts/CookieWrapper.js"></script>
         <script src="Scripts/Utility.js"></script>
     </head>
-    <header>
-    </header>
     <body>
         <button id="TestButton" onclick="Test()" class="StandardButton debug">test</button>
         <div id="FireGif" class="debug"></div>
@@ -17,7 +19,7 @@
             <p id="ControlPanelName">Control Panel</p>
             <button id="Statswitch" class="ControlPanelButton StandardButton" onclick="SwitchTo('Stats')">Statistics</button>
             <button id="Settings" class="ControlPanelButton StandardButton" onclick="SwitchTo('Settings')">Settings</button>
-            <button id="wipe" class="ControlPanelButton StandardButton" onclick="WipeData()">Wipe data</button>
+            <button id="wipe" class="ControlPanelButton StandardButton" onclick="WipeData()" title="There is no going back!">Wipe data</button>
         </div>
 
         <div class = "main Stats">
@@ -32,12 +34,20 @@
                 <button class="StandardButton DarkMode" onclick="DarkMode('light')">Light mode</button>
             </div>
         </div>
-        <a href="https://discord.gg/HEfjvH2nQz" target="_blank"><button id="DiscordSocial"></button></a>
+        <div id="SocialFrame">
+            <a href="https://www.reddit.com/r/EasiestClickerGame/" target="_blank" class="socialA"><button id="RedditSocial" class="Social"></button></a>
+            <a href="https://ko-fi.com/vsauce" target="_blank" class="socialA"><button id="KofiSocial" class="Social"></button></a>
+            <a href="https://discord.gg/HEfjvH2nQz" target="_blank" class="socialA"><button id="DiscordSocial" class="Social"></button></a>
+        </div>
 
         <div class="main Game" id="mainFrame">
             
             <h2 id="title" class="title rainbow">WORLD'S EASIEST CLICKER GAME!</h2>
             
+            <div id="GoalHolder">
+                <p id="GoalText">Goal Goal Goal<br>Goal Goal Goal</p>
+            </div>
+
             <p id="balance" class="balance">Balance: 0</p>
         
             <p id="incomeps" class="income">Income (per second): 0</p>
@@ -45,15 +55,14 @@
             <div class="b">
                 <button onclick="ButtonIncrement()" class="StandardButton" id="clickerbutton">Click to do the thing!!!</button>
                 <p id="incomepc" class="click">Income (per click): 1</p>
+                <p id="incomepassive" class="income">Income (passive per tick): 0</p>
             </div>
-        
             <div class="shopframe">
         
                 <p class="shoptext">
-                    The insanity shop
+                    The Insanity Shop
                 </p>
-        
-                <div id="shopbuttonframe">
+                <div class="shopbuttonframe">
                     <div class="shopbuttoncontainer">
                         <button class="shopbutton StandardButton" id="shop0" title="test title">
                             Shop button 0!
@@ -80,6 +89,46 @@
                     </div>
                 </div>
             </div>
+            <p id="PrestigeReq">5000 Balance required to unlock Prestige.</p>
+            <div id="PrestigeShop">
+                <div class="PrestigeBox" id="Prestige1">
+                    <p class="shoptext" id="PrestigeText">
+                        The Insanity Prestige
+                    </p>
+                    <p id="PrestigeDesc">Prestige will reset your balance and insanity shop uprades, in return unlocking Prestige Upgrades, which do not reset on prestige.</p>
+                    <p id="PrestigeCount">You currently have 1 Prestige</p>
+                    <button id="PrestigeButton" onclick="Prestige()">Prestige</button>
+                </div>
+                <div class="PrestigeBox" id="Prestige2">
+                    <p class="shoptext">The Insanity Prestige Upgrades</p>
+                    <div id="PrestigeShopFrame" class="shopbuttonframe">
+                        <div class="shopbuttoncontainer">
+                            <button class="shopbutton StandardButton" id="Prestigeshop0" title="test title">
+                                Shop button 0!
+                            </button>
+                            <p class="ShopButtonDesc" id="descPrestigeshop0">100/100</p>
+                        </div>
+                        <div class="shopbuttoncontainer">
+                            <button class="shopbutton StandardButton" id="Prestigeshop1" title="test title">
+                                Shop button 1!
+                            </button>
+                            <p class="ShopButtonDesc" id="descPrestigeshop1">100/100</p>
+                        </div>
+                        <div class="shopbuttoncontainer">
+                            <button class="shopbutton StandardButton" id="Prestigeshop2" title="test title">
+                                Shop button 2!
+                            </button>
+                            <p class="ShopButtonDesc" id="descPrestigeshop2">100/100</p>
+                        </div>
+                        <div class="shopbuttoncontainer">
+                            <button class="shopbutton StandardButton" id="Prestigeshop3" title="test title">
+                                Shop button 3!
+                            </button>
+                            <p class="ShopButtonDesc" id="descPrestigeshop3">100/100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -88,7 +137,6 @@
                 test text notification !!!!
             </h3>
         </div>
-
 
     </body>
 </html>

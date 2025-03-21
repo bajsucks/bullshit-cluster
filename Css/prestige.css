@@ -1,0 +1,81 @@
+#PrestigeShop
+{
+    position: absolute;
+    display: flex;
+    margin: 0;
+    margin-top: 50px;
+    width: 1055px;
+    height: 250px;
+    padding: 0;
+    visibility: hidden;
+}
+#Prestige1, #Prestige2
+{
+    visibility: hidden;
+}
+#PrestigeText
+{
+    display: block;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+}
+.PrestigeCont
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+#PrestigeContainer
+{
+    width: 100%;
+    height: 80%;
+    bottom: 0;
+}
+#PrestigeButton
+{
+    text-align: center;
+    width: 90%;
+    height: 20%;
+    margin: 0;
+    margin-left: 5%;
+    font-size: large;
+}
+#PrestigeDesc
+{
+    text-align: center;
+    font-size: 18px;
+    width: 85%;
+    height: 25%;
+    margin-left: 7.5%;
+}
+#PrestigeCount
+{
+    text-align: center;
+    font-size: 18px;
+    width: 85%;
+    height: 20%;
+    margin: 0;
+    margin-left: 7.5%;
+}
+#PrestigeReq
+{
+    position: absolute;
+    margin-top: 170px;
+    margin-left: 100px;
+    text-align: center;
+    font-size: larger;
+    visibility: hidden;
+}
+.PrestigeBox
+{
+    width: 50%;
+    height: 100%;
+    border-style: groove;
+    border-color: rgb(69, 125, 247);
+    margin: 0;
+    padding: 0;
+    margin-right: 20px;
+}

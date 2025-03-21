@@ -1,0 +1,11 @@
+#GoalText
+{
+    font-size: larger;
+}
+#GoalHolder
+{
+    position: absolute;
+    height: 100px;
+    width: 400px;
+    margin-left: 700px;
+}

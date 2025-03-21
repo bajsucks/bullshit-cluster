@@ -1,15 +1,11 @@
 double parentheses means it's done
 curly means it's in progress
 
-Next goal (unlocks)
+((Goals))
 
-Prestiges
+((Prestiges))
 
 Prestige goals
-
-((Notifications))
-
-((Shop))
 
 per sec animation
 
@@ -19,15 +15,7 @@ Add rush multiplier
 
 achievements
 
-((TODO: Remake income to constant calculation, and only real time calculate the mouse clicks))
-
-huge number support
-
-scientific notation support
-
 upgrade tiers
-
-((Change cookies to localstore))
 
 {Custom color schemes}
 
@@ -35,8 +23,18 @@ upgrade tiers
 
 {Statistics}
 
-((TODO: Fix up notification layout))
-
 Tier 2 upgrades
 
 Permanent shop
+
+splash texts
+
+second dimension
+
+Eternal Suffering
+
+Move basic stats to the right setting
+
+Farmify (offline income)
+
+Make upgrade buttons auto generated
